@@ -60,24 +60,24 @@ Each table has the following Attributes
 Block data is directly stored in Ethereum blockchain. block consists of the following fields
 
 ```
-timestamp		    The timestamp for when the block was collated       
-number			    The block number       
-hash			    Hash of the block     
-parent_hash		    Hash of the parent block        
-nonce		        Hash of the generated proof-of-work     
+timestamp		        The timestamp for when the block was collated       
+number			        The block number       
+hash			          Hash of the block     
+parent_hash		      Hash of the parent block        
+nonce		            Hash of the generated proof-of-work     
 sha3_uncles	        SHA3 of the uncles data in the block
-logs_bloom		    The bloom filter for the logs of the block
-transactions_root	The root of the transaction trie of the block
-state_root		    The root of the final state trie of the block
-receipts_root		The root of the receipts trie of the block
-miner		        The address of the beneficiary to whom the mining rewards were given
-difficulty		    Integer of the difficulty for this block
-total_difficulty	Integer of the total difficulty of the chain until this block
-size	            The size of this block in bytes
+logs_bloom		      The bloom filter for the logs of the block
+transactions_root	  The root of the transaction trie of the block
+state_root		      The root of the final state trie of the block
+receipts_root		    The root of the receipts trie of the block
+miner		            The address of the beneficiary to whom the mining rewards were given
+difficulty		      Integer of the difficulty for this block
+total_difficulty	  Integer of the total difficulty of the chain until this block
+size	              The size of this block in bytes
 extra_data	        The extra data field of this block
-gas_limit	        The maximum gas allowed in this block
-gas_used	        The total used gas by all transactions in this block
-transaction_count	The number of transactions in the block
+gas_limit	          The maximum gas allowed in this block
+gas_used	          The total used gas by all transactions in this block
+transaction_count	  The number of transactions in the block
 ``` 
 
 We can only obtain little information about the blockchain users through analyzing the block data. This is
@@ -102,24 +102,24 @@ Each block in the blockchain is composed of zero or more transactions. Each tran
 This table contains a set of all transactions from all blocks
 
 ```
-hash		                    Hash of the transaction
-nonce		                    The number of transactions made by the sender prior to this one
+hash		                      Hash of the transaction
+nonce		                      The number of transactions made by the sender prior to this one
 transaction_index	            Integer of the transactions index position in the block
 from_address	                Address of the sender
-to_address			            Address of the receiver. null when its a contract creation transaction
-value			                Value transferred in Wei
-gas			                    Gas provided by the sender
-gas_price			            Gas price provided by the sender in Wei
-input			                The data sent along with the transaction
-receipt_cumulative_gas_used	    The total amount of gas used when this transaction was executed in the block
+to_address			              Address of the receiver. null when its a contract creation transaction
+value			                    Value transferred in Wei
+gas			                      Gas provided by the sender
+gas_price			                Gas price provided by the sender in Wei
+input			                    The data sent along with the transaction
+receipt_cumulative_gas_used	  The total amount of gas used when this transaction was executed in the block
 receipt_gas_used	            The amount of gas used by this specific transaction alone
 receipt_contract_address	    The contract address created, if the transaction was a contract creation,   
-                                otherwise null
-receipt_root		            32 bytes of post-transaction stateroot (pre Byzantium)
-receipt_status	                Either 1 (success) or 0 (failure) (post Byzantium)
+                              otherwise null
+receipt_root		              32 bytes of post-transaction stateroot (pre Byzantium)
+receipt_status	              Either 1 (success) or 0 (failure) (post Byzantium)
 block_timestamp		            Timestamp of the block where this transaction was in
 block_number	                Block number where this transaction was in
-block_hash                      Hash of the block where this transaction was in
+block_hash                    Hash of the block where this transaction was in
 ```
 
 ### Queries
@@ -171,15 +171,15 @@ The most popular type of transaction on the Ethereum blockchain invokes a contra
 This table contains the subset of those transactions
 
 ```
-token_address		ERC20 token address
-from_address		Address of the sender
+token_address		  ERC20 token address
+from_address		  Address of the sender
 to_address		    Address of the receiver
-value		        Amount of tokens transferred (ERC20) 
+value		          Amount of tokens transferred (ERC20) 
 transaction_hash	Transaction hash
 log_index	        Log index in the transaction receipt
-block_timestamp	    Timestamp of the block where this transfer was in
+block_timestamp	  Timestamp of the block where this transfer was in
 block_number	    Block number where this transfer was in
-block_hash	        Hash of the block where this transfer was in
+block_hash	      Hash of the block where this transfer was in
 ```
 
 ### Queries   
@@ -236,9 +236,9 @@ bytecode	            Bytecode of the contract
 function_sighashes		4-byte function signature hashes
 is_erc20	            Whether this contract is an ERC20 contract
 is_erc721	            Whether this contract is an ERC721 contract
-block_timestamp	        Timestamp of the block where this contract was created
+block_timestamp	      Timestamp of the block where this contract was created
 block_number	        Block number where this contract was created
-block_hash	            Hash of the block where this contract was created
+block_hash	          Hash of the block where this contract was created
 ```      
 
 ### Queries   
@@ -290,11 +290,11 @@ These are all the erc20 tokens, along with their name and attributes
 ```
 address	            The address of the ERC20 token
 symbol	            The symbol of the ERC20 token
-name	            The name of the ERC20 token
+name	              The name of the ERC20 token
 decimal	            The number of decimals the token uses. Use safe_cast for casting to NUMERIC or FLOAT64
-total_supply		The total token supply. Use safe_cast for casting to NUMERIC or FLOAT64
+total_supply		    The total token supply. Use safe_cast for casting to NUMERIC or FLOAT64
 block_timestamp	    Timestamp of the block where this token was created
-block_number	    Block number where this token was created
+block_number	      Block number where this token was created
 block_hash	        Hash of the block where this token was created
 ```       
 
@@ -314,6 +314,6 @@ Resultuing in `33 MB` of data.
 
 # Further Cleaning
 
-All of the data is now available on our [GCP buckets](https://storage.googleapis.com/ethereum-bigdata/) which is public at the moment. to access any file, you can just append the key to the base url above. 
+All of the data is now available on our [GCP buckets](https://storage.googleapis.com/ethereum-bigdata/) which is public at the moment. To access any file, you can just append the key to the base url above. 
 
 Since the data originates from a blockchain which is immutabale by nature there is non existant human errors in the data since it is all generated by the EVM. There are some value which are null like in `receipt_contract_address` of the `transactions` table indicating that this transaction is not a contract creation. In such a scenario, we decided to keep the values null instead of assigning a default value since, that would be considered an address(while its not). 
